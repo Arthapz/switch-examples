@@ -41,7 +41,7 @@ rule("switch")
         end
 
         if target:kind() == "binary" or target:kind() == "shared" then
-            local link_scripts_dir = target:scriptdir() -- path.join(import("core.project.project").required_package("switch-support-files"):installdir(), "share", "link-scripts")
+            local link_scripts_dir = path.join(import("core.project.project").required_package("switch-support-files"):installdir(), "share", "link-scripts")
             local object_dir = path.join(import("core.project.project").required_package("switch-support-files"):installdir(), "lib", "switch-support-files", "switch", "aarch64", is_mode("debug") and "debug" or "release", "src")
 
             local ldflags = target:get("ldflags")
