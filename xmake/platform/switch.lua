@@ -42,14 +42,14 @@ rule("switch")
 
         if target:kind() == "binary" or target:kind() == "shared" then
             local link_scripts_dir = target:scriptdir() -- path.join(import("core.project.project").required_package("switch-support-files"):installdir(), "share", "link-scripts")
-            local object_dir = path.join(import("core.project.project").required_package("switch-support-files"):installdir(), "lib")
+            local object_dir = path.join(import("core.project.project").required_package("switch-support-files"):installdir(), "lib", "switch-support-files", "switch", "aarch64", is_mode("debug") and "debug" or "release", "src")
 
             local ldflags = target:get("ldflags")
-            target:set("ldflags", path.join(object_dir, "crti.o"), {force = true})
-            target:set("ldflags", ldflags, {force = true})
+            target:set("ldflags", path.join(object_dir, "crti.S.o"), {force = true})
+            target:add("ldflags", ldflags, {force = true})
 
             local linker_script = path.join(link_scripts_dir, "nro.ld")
-            target:add("ldflags", path.join(object_dir, "crtn.o"), "-Wl,-T " .. linker_script, {force = true})
+            target:add("ldflags", path.join(object_dir, "crtn.S.o"), "-Wl,-T " .. linker_script, {force = true})
 
             linker_script = path.join(link_scripts_dir, "nso.ld")
             target:add("shflags", "-Wl,-T " .. linker_script, {force = true})
@@ -70,6 +70,7 @@ rule("switch")
                                               installdir = switch_tools,
                                               system = false,
                                               norun = true})
+        -- local elf2nro = find_tool("elf2nro", {norun = true})
         assert(elf2nro and elf2nro.program, "elf2nro not in PATH, can't bake nro file")
 
         local nacptool = find_tool("nacptool", {require_version = path.filename(path.directory(switch_tools)),
