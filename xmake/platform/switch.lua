@@ -34,25 +34,24 @@ rule("switch")
     on_load(function(target)
         target:add("packages", "switch-llvm")
 
-        target:add("packages", "switch-newlib", "switch-libnx", "switch-llvm-runtimes", "switch-tools", "switch-support-files")
+        if target:sourcebatches()["c++"] then
+            target:add("packages", "switch-llvm-runtimes", {components = "cxx"})
+        else
+            target:add("packages", "switch-llvm-runtimes")
+        end
+
+        target:add("packages", "switch-newlib", "libnx", "switch-tools", "switch-support-files")
 
         if target:kind() == "binary" then
             target:add("cxflags", "-fPIE")
         end
 
         if target:kind() == "binary" or target:kind() == "shared" then
-            local link_scripts_dir = path.join(import("core.project.project").required_package("switch-support-files"):installdir(), "share", "link-scripts")
-            local object_dir = path.join(import("core.project.project").required_package("switch-support-files"):installdir(), "lib", "switch-support-files", "switch", "aarch64", is_mode("debug") and "debug" or "release", "src")
+            -- local object_dir = path.join(import("core.project.project").required_package("switch-support-files"):installdir(), "lib", "switch-support-files", "switch", "aarch64", is_mode("debug") and "debug" or "release", "src")
 
-            local ldflags = target:get("ldflags")
-            target:set("ldflags", path.join(object_dir, "crti.S.o"), {force = true})
-            target:add("ldflags", ldflags, {force = true})
-
-            local linker_script = path.join(link_scripts_dir, "nro.ld")
-            target:add("ldflags", path.join(object_dir, "crtn.S.o"), "-Wl,-T " .. linker_script, {force = true})
-
-            linker_script = path.join(link_scripts_dir, "nso.ld")
-            target:add("shflags", "-Wl,-T " .. linker_script, {force = true})
+            -- local ldflags = target:get("ldflags")
+            -- target:set("ldflags", path.join(object_dir, "crti.S.o"), {force = true})
+            -- target:add("ldflags", ldflags, {force = true})
         end
     end)
 
@@ -92,7 +91,7 @@ rule("switch")
         local titleid = target:values("switch.titleid")
         titleid = titleid or name
 
-        cprint("${color.build.target}Generating nacp metadata")
+        cprint("\n${color.build.target}Generating nacp metadata")
 
         local nacpfile = path.absolute(path.join(target:autogendir(), "metadata.nacp"))
 

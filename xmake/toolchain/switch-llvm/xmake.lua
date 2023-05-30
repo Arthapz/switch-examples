@@ -54,32 +54,30 @@ toolchain("switch-llvm")
                 "-mtune=cortex-a57",
                 "-ffunction-sections",
                 "-fdata-sections",
-                "-fstack-protector-strong",
-                "-fPIC"
+                "-fstack-protector-strong"
             }
 
             local sharedlinkflags = {
                 "-Wl,-Bsymbolic",
                 "-fPIC",
                 "-Wl,--gc-sections",
-                "-Wl,-z -Wl,text",
-                "-Wl,-z -Wl,rodynamic",
+                "-Wl,-z,text",
                 "-Wl,--build-id=sha1",
-                "-Wl,--eh-frame-hdr",
-                "-Wl,--no-undefined"
+                "-Wl,--no-undefined",
+                "-Wl,--no-dynamic-linker",
+                "-Wl,--as-needed",
             }
 
             local executablelinkflags = {
                 "-Wl,-Bsymbolic",
-                "-fPIC",
                 "-fPIE",
                 "-Wl,-pie",
                 "-Wl,--gc-sections",
-                "-Wl,-z -Wl,text",
-                "-Wl,-z -Wl,rodynamic",
+                "-Wl,-z,text",
                 "-Wl,--build-id=sha1",
-                "-Wl,--eh-frame-hdr",
-                "-Wl,--no-undefined"
+                "-Wl,--no-undefined",
+                "-Wl,--no-dynamic-linker",
+                "-Wl,--as-needed",
             }
 
             local defines = {

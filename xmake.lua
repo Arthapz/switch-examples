@@ -3,6 +3,8 @@ add_rules("mode.debug", "mode.release")
 set_allowedplats("switch")
 set_allowedarchs("switch|aarch64")
 
+set_policy("check.auto_ignore_flags", false)
+
 if is_plat("switch") then
     includes("xmake/toolchain/switch-llvm")
     includes("xmake/platform/switch.lua")
@@ -11,7 +13,7 @@ if is_plat("switch") then
     set_arch("aarch64")
 
     set_toolchains("switch-llvm@switch-llvm")
-    add_requires("switch-support-files", "switch-llvm-runtimes", "switch-libnx", "switch-newlib", {debug = is_mode("debug")})
+    add_requires("switch-support-files", "switch-llvm-runtimes", "libnx", "switch-newlib", {debug = is_mode("debug")})
 end
 
 includes("helloworld/xmake.lua")
