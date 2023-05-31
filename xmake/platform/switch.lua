@@ -145,5 +145,5 @@ rule("switch")
             table.join2(args, {"-c", conf_path})
         end
 
-        os.runv(yuzu, args)
+        os.vrunv(yuzu, args)
     end)

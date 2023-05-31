@@ -7,10 +7,10 @@ toolchain("switch-llvm")
     set_toolset("cc", "clang")
     set_toolset("cxx", "clang++", "clang")
     set_toolset("cpp", "clang -E")
-    set_toolset("as", "clang++", "clang")
+    set_toolset("as", "clang++")
 
-    set_toolset("ld", "clang++", "clang")
-    set_toolset("sh", "clang++", "clang")
+    set_toolset("ld", "clang++")
+    set_toolset("sh", "clang++")
     set_toolset("ar", "llvm-ar")
 
     set_toolset("nm", "llvm-nm")
@@ -51,14 +51,18 @@ toolchain("switch-llvm")
         if toolchain:is_plat("switch") then
             local buildflags = {
                 "-march=armv8-a+crc+crypto+simd",
+                "-mcpu=cortex-a57",
                 "-mtune=cortex-a57",
+                "-ftls-model=local-exec",
                 "-ffunction-sections",
                 "-fdata-sections",
-                "-fstack-protector-strong"
+                "-fstack-protector-strong",
+                "-fPIC",
+                "-fexceptions"
             }
 
             local sharedlinkflags = {
-                "-Wl,-Bsymbolic",
+                "-Wl,-Bdynamic",
                 "-fPIC",
                 "-Wl,--gc-sections",
                 "-Wl,-z,text",
@@ -66,6 +70,7 @@ toolchain("switch-llvm")
                 "-Wl,--no-undefined",
                 "-Wl,--no-dynamic-linker",
                 "-Wl,--as-needed",
+                "-Wl,--eh-frame-hdr"
             }
 
             local executablelinkflags = {
@@ -78,6 +83,7 @@ toolchain("switch-llvm")
                 "-Wl,--no-undefined",
                 "-Wl,--no-dynamic-linker",
                 "-Wl,--as-needed",
+                "-Wl,--eh-frame-hdr"
             }
 
             local defines = {
