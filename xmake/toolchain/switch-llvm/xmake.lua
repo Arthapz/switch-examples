@@ -72,7 +72,8 @@ toolchain("switch-llvm")
                 "-Wl,--no-undefined",
                 "-Wl,--no-dynamic-linker",
                 "-Wl,--as-needed",
-                "-Wl,--eh-frame-hdr"
+                "-Wl,--eh-frame-hdr",
+                "-fvisibility=hidden"
             }
 
             local executablelinkflags = {
@@ -85,7 +86,7 @@ toolchain("switch-llvm")
                 "-Wl,--no-dynamic-linker",
                 "-Wl,--as-needed",
                 "-Wl,--eh-frame-hdr",
-                "-Wl,--warn-unresolved-symbols"
+                "-fvisibility=hidden"
             }
 
             local defines = {
