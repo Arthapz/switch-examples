@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <switch.h>
 
 #include <iostream>
@@ -5,7 +6,7 @@
 
 thread_local auto foo = 5;
 
-int main(int argc, char **argv) {
+auto main(int argc, char **argv) -> int {
     consoleInit(nullptr);
 
     padConfigureInput(1, HidNpadStyleSet_NpadStandard);
@@ -27,5 +28,5 @@ int main(int argc, char **argv) {
 
     consoleExit(nullptr);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
