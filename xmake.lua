@@ -17,5 +17,5 @@ if is_plat("switch") then
 end
 
 includes("helloworld/xmake.lua")
-includes("opengl/xmake.lua")
+includes("nxlink/xmake.lua")
 includes("opengl/xmake.lua")
