@@ -18,3 +18,4 @@ end
 
 includes("helloworld/xmake.lua")
 includes("opengl/xmake.lua")
+includes("opengl/xmake.lua")
