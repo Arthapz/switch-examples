@@ -58,7 +58,9 @@ toolchain("switch-llvm")
                 "-fdata-sections",
                 "-fstack-protector-strong",
                 "-fPIC",
-                "-fexceptions"
+                "-fexceptions",
+                "-mtp=el0",
+                "-fvectorize"
             }
 
             local sharedlinkflags = {
@@ -80,10 +82,10 @@ toolchain("switch-llvm")
                 "-Wl,--gc-sections",
                 "-Wl,-z,text",
                 "-Wl,--build-id=sha1",
-                "-Wl,--no-undefined",
                 "-Wl,--no-dynamic-linker",
                 "-Wl,--as-needed",
-                "-Wl,--eh-frame-hdr"
+                "-Wl,--eh-frame-hdr",
+                "-Wl,--warn-unresolved-symbols"
             }
 
             local defines = {

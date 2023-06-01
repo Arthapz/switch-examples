@@ -3,6 +3,8 @@
 #include <iostream>
 #include <format>
 
+thread_local auto foo = 5;
+
 int main(int argc, char **argv) {
     consoleInit(nullptr);
 
@@ -11,7 +13,7 @@ int main(int argc, char **argv) {
     PadState pad;
     padInitializeDefault(&pad);
 
-    std::cout << std::format("Hello World!\n    cpp standard: {}\n    llvm version: {}\n    newlib version: {}\n", __cplusplus,__clang_version__, __NEWLIB__) << std::endl;
+    std::cout << std::format("Hello World!\n    cpp standard: {}\n    llvm version: {}\n    newlib version: {}\n    thread_local test: {}\n", __cplusplus,__clang_version__, __NEWLIB__, foo) << std::endl;
 
     while(appletMainLoop()) {
         padUpdate(&pad);
