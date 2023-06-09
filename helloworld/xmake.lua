@@ -6,7 +6,7 @@ target("helloworld")
         add_rules("switch")
     end
 
-    set_languages("c++2b", "c2x")
+    set_languages("c++2b")
     add_files("src/*.cpp")
 
     add_cxxflags("clangxx::-fexperimental-library", {force = true})

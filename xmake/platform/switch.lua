@@ -32,26 +32,10 @@ perform_vulkan_check=false
 rule("switch")
     add_deps("asm")
     on_load(function(target)
-        target:add("packages", "switch-llvm")
-
-        if target:sourcebatches()["c++"] then
-            target:add("packages", "switch-llvm-runtimes", {components = "cxx"})
-        else
-            target:add("packages", "switch-llvm-runtimes")
-        end
-
-        target:add("packages", "switch-newlib", "libnx", "switch-tools", "switch-support-files")
+        target:add("packages", "switch-llvm-sysroot", "switch-tools")
 
         if target:kind() == "binary" then
             target:add("cxflags", "-fPIE")
-        end
-
-        if target:kind() == "binary" or target:kind() == "shared" then
-            -- local object_dir = path.join(import("core.project.project").required_package("switch-support-files"):installdir(), "lib", "switch-support-files", "switch", "aarch64", is_mode("debug") and "debug" or "release", "src")
-
-            -- local ldflags = target:get("ldflags")
-            -- target:set("ldflags", path.join(object_dir, "crti.S.o"), {force = true})
-            -- target:add("ldflags", ldflags, {force = true})
         end
     end)
 
