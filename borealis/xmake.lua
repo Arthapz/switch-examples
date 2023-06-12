@@ -1,6 +1,6 @@
-add_requires("switch-mesa", "glad")
+add_requires("borealis")
 
-target("opengl")
+target("borealise")
     set_kind("binary")
     add_rules("mode.debug", "mode.release")
 
@@ -14,8 +14,8 @@ target("opengl")
     add_cxxflags("clangxx::-fexperimental-library", {force = true})
     add_ldflags("clangxx::-fexperimental-library", {force = true})
 
-    set_values("switch.name", "opengl")
+    set_values("switch.name", "borealis")
     set_values("switch.author", "arthapz")
     set_values("switch.version", "1.33.7")
 
-    add_packages("switch-mesa", "glad")
+    add_packages("borealis")

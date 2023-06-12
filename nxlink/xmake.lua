@@ -3,10 +3,10 @@ target("nxlink")
     add_rules("mode.debug", "mode.release")
 
     if is_plat("switch") then
-        add_rules("switch")
+        add_rules("@switch-llvm-sysroot/switch")
     end
 
-    set_languages("c++2b", "c2x")
+    set_languages("c++2b")
     add_files("src/*.cpp")
 
     add_cxxflags("clangxx::-fexperimental-library", {force = true})

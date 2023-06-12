@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <switch.h>
 
 #include <iostream>
@@ -11,15 +10,20 @@ auto main(int argc, char **argv) -> int {
 
     padConfigureInput(1, HidNpadStyleSet_NpadStandard);
 
-    PadState pad;
+    auto pad = PadState{};
     padInitializeDefault(&pad);
 
-    std::cout << std::format("Hello World!\n    cpp standard: {}\n    llvm version: {}\n    newlib version: {}\n    thread_local test: {}\n", __cplusplus,__clang_version__, __NEWLIB__, foo) << std::endl;
+    std::cout << std::format("Hello World!\n    cpp standard: {}\n    llvm version: {}\n    newlib version: {}\n    thread_local test: {}\n",
+                             __cplusplus,
+                             __clang_version__,
+                             __NEWLIB__,
+                             foo)
+              << std::endl;
 
     while(appletMainLoop()) {
         padUpdate(&pad);
 
-        const int kdown = padGetButtonsDown(&pad);
+        const auto kdown = padGetButtonsDown(&pad);
 
         if(kdown & HidNpadButton_Plus) break;
 

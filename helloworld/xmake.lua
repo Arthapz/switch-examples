@@ -3,7 +3,7 @@ target("helloworld")
     add_rules("mode.debug", "mode.release")
 
     if is_plat("switch") then
-        add_rules("switch")
+        add_rules("@switch-llvm-sysroot/switch")
     end
 
     set_languages("c++2b")
